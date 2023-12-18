@@ -1,14 +1,14 @@
 modLoader="javafml"
 loaderVersion="*"
 license="All rights reserved"
-issueTrackerURL="https://github.com/ricksouth/serilum-mc-mods/labels/Mod:%20Flower%20Mimics"
+issueTrackerURL="https://github.com/Serilum/.issue-tracker/labels/Mod:%20Flower%20Mimics"
 logoFile="icon.png"
 
 [[mods]]
 modId="flowermimics"
-version="1.5"
+version="1.6"
 displayName="Flower Mimics"
-displayURL="https://curseforge.com/minecraft/mc-mods/flower-mimics"
+displayURL="https://serilum.com/mod/flower-mimics"
 authors="Rick South"
 description='''SpookyJam 2023: Be careful around flowers at night.. they might transform into monsters!
 '''
@@ -21,13 +21,15 @@ If you would like to contribute too, check out https://ricksouth.com/donate. App
 
 [[dependencies.flowermimics]]
     modId="collective"
+    type="required"
     mandatory=true
-    versionRange="[7.11,)"
+    versionRange="[7.21,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.flowermimics]]
     modId="minecraft"
+    type="required"
     mandatory=true
     versionRange="[1.20.1]"
     ordering="NONE"

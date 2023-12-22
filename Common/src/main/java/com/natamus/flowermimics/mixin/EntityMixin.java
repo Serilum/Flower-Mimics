@@ -1,4 +1,4 @@
-package com.natamus.flowermimics.neoforge.mixin;
+package com.natamus.flowermimics.mixin;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;

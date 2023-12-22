@@ -1,4 +1,4 @@
-package com.natamus.flowermimics.forge.mixin;
+package com.natamus.flowermimics.mixin;
 
 import net.minecraft.world.entity.LightningBolt;
 import org.spongepowered.asm.mixin.Mixin;

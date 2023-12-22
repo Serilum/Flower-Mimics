@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "flowermimics",
-  "version": "1.6",
+  "version": "1.7",
 
   "name": "Flower Mimics",
   "description": "SpookyJam 2023: Be careful around flowers at night.. they might transform into monsters!",
@@ -18,7 +18,7 @@
   "environment": "*",
   "entrypoints": { "main": [ "com.natamus.flowermimics.ModFabric" ], "modmenu": [ "com.natamus.flowermimics.fabric.config.IntegrateModMenu" ] },
   "mixins": [
-    "flowermimics_fabric.mixins.json"
+    "flowermimics.mixins.json"
   ],
 
   "depends": {
@@ -26,7 +26,7 @@
     "fabric": "*",
     "minecraft": ">=1.20",
     "java": ">=17",
-    "collective": ">=7.21"
+    "collective": ">=7.26"
   },
 
   "custom": {

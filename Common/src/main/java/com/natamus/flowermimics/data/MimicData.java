@@ -201,9 +201,9 @@ public class MimicData {
 					Optional<ItemStack> optionalItemStack = ItemStack.parse(level.registryAccess(), newnbt);
 					optionalItemStack.ifPresent(itemStack -> flowerMimicDrops.put(flowerBlock, itemStack.copy()));
 				}
-				catch (CommandSyntaxException ignored) { }
-
-				Variables.logger.warn("[" + Reference.NAME + "] Unable to find itemstack from NBT: " + itemStackNBTString);
+				catch (CommandSyntaxException ex) {
+					Variables.logger.warn("[" + Reference.NAME + "] Unable to find itemstack from NBT: " + itemStackNBTString);
+				}
 			}
 		}
 

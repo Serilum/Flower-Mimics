@@ -193,7 +193,7 @@ public class MimicData {
 				Block flowerBlock = level.registryAccess().registryOrThrow(BuiltInRegistries.BLOCK.key()).get(flowerBlockResourceLocation);
 
 				if (flowerBlock == null) {
-					Variables.logger.warn("[" + Reference.NAME + "] Unable to find flower '" + flowerBlockRlString + "' in registry.");
+					Variables.logger.warn("[" + Reference.NAME + "] 2. Unable to find flower '" + flowerBlockRlString + "' in registry.");
 					continue;
 				}
 

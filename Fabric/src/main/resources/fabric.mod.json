@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "flowermimics",
+  "version": "2.0",
+
+  "name": "Flower Mimics",
+  "description": "SpookyJam 2023: Be careful around flowers at night.. they might transform into monsters!",
+  "authors": [ "Rick South" ],
+  "contact": {
+    "homepage": "https://serilum.com/mod/flower-mimics",
+    "sources": "https://github.com/Serilum/Flower-Mimics",
+    "issues": "https://github.com/Serilum/.issue-tracker/labels/Mod:%20Flower%20Mimics"
+  },
+
+  "license": "All Right Reserved",
+  "icon": "icon.png",
+
+  "environment": "*",
+  "entrypoints": { "main": [ "com.natamus.flowermimics.ModFabric" ], "modmenu": [ "com.natamus.flowermimics.fabric.config.IntegrateModMenu" ] },
+  "mixins": [
+    "flowermimics.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric": "*",
+    "minecraft": ">=1.21",
+    "java": ">=21",
+    "collective": ">=7.80"
+  },
+
+  "custom": {
+    "modmenu": {
+      "links": {
+        "Donate <3" : "https://ricksouth.com/donate"
+      }
+    }
+  },
+
+  "contributors": [
+	  " ",
+	  "Thank you very much to my Membership sponsors for supporting the development of this mod!",
+	  " ",
+	  "If you would like to contribute too, check out https://serilum.com/donate.",
+	  " ",
+	  "Membership sponsors:",
+	  " Alister",
+	  " Andrean Olgo",
+	  " aternosorg",
+	  " Cherriesaurus",
+	  " Michael W. S.",
+	  " Nahuel Fernandez",
+	  " Shana Gitnick",
+	  " Tyler Behl"
+  ]
+}

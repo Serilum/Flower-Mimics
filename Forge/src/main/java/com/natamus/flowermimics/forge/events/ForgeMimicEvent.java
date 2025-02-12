@@ -13,12 +13,10 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@EventBusSubscriber
 public class ForgeMimicEvent {
     @SubscribeEvent
-    public void onWorldLoad(LevelEvent.Load e) {
+    public static void onWorldLoad(LevelEvent.Load e) {
         Level level = WorldFunctions.getWorldIfInstanceOfAndNotRemote(e.getLevel());
         if (level == null) {
             return;
@@ -28,7 +26,7 @@ public class ForgeMimicEvent {
     }
 
 	@SubscribeEvent
-	public void onPlayerTick(TickEvent.PlayerTickEvent e) {
+	public static void onPlayerTick(TickEvent.PlayerTickEvent e) {
 		Player player = e.player;
 		Level level = player.level();
 		if (level.isClientSide || !e.phase.equals(TickEvent.Phase.START)) {
@@ -39,13 +37,13 @@ public class ForgeMimicEvent {
 	}
 
 	@SubscribeEvent
-	public void mobItemDrop(LivingDropsEvent e) {
+	public static void mobItemDrop(LivingDropsEvent e) {
 		Entity entity = e.getEntity();
 		MimicEvent.mobItemDrop(entity.level(), entity, e.getSource());
 	}
 
 	@SubscribeEvent
-	public void onWorldTick(TickEvent.LevelTickEvent e) {
+	public static void onWorldTick(TickEvent.LevelTickEvent e) {
 		Level level = e.level;
 		if (level.isClientSide || !e.phase.equals(TickEvent.Phase.START)) {
 			return;
@@ -55,7 +53,7 @@ public class ForgeMimicEvent {
 	}
 
 	@SubscribeEvent
-	public void onNeighbourNotice(BlockEvent.NeighborNotifyEvent e) {
+	public static void onNeighbourNotice(BlockEvent.NeighborNotifyEvent e) {
 		Level level = WorldFunctions.getWorldIfInstanceOfAndNotRemote(e.getLevel());
 		if (level == null) {
 			return;

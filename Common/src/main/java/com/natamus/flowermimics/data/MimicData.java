@@ -15,6 +15,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -54,24 +55,24 @@ public class MimicData {
 	private static final HashMap<Block, Pair<Item, Integer>> defaultFlowerMimicDrops = new HashMap<>();
 
 	public static void loadDefaultMimicData() {
-		defaultFlowerToMimic.put(Blocks.ALLIUM, EntityType.ILLUSIONER);
-		defaultFlowerToMimic.put(Blocks.AZURE_BLUET, EntityType.WANDERING_TRADER);
-		defaultFlowerToMimic.put(Blocks.BLUE_ORCHID, EntityType.DROWNED);
-		defaultFlowerToMimic.put(Blocks.CORNFLOWER, EntityType.PHANTOM);
-		defaultFlowerToMimic.put(Blocks.DANDELION, EntityType.ZOMBIE_VILLAGER);
-		defaultFlowerToMimic.put(Blocks.LILAC, EntityType.SHULKER);
-		defaultFlowerToMimic.put(Blocks.LILY_OF_THE_VALLEY, EntityType.GHAST);
-		defaultFlowerToMimic.put(Blocks.ORANGE_TULIP, EntityType.SNOW_GOLEM);
-		defaultFlowerToMimic.put(Blocks.OXEYE_DAISY, EntityType.STRAY);
-		defaultFlowerToMimic.put(Blocks.PEONY, EntityType.VINDICATOR);
-		defaultFlowerToMimic.put(Blocks.PINK_TULIP, EntityType.SLIME);
-		defaultFlowerToMimic.put(Blocks.POPPY, EntityType.CAVE_SPIDER);
-		defaultFlowerToMimic.put(Blocks.RED_TULIP, EntityType.SPIDER);
-		defaultFlowerToMimic.put(Blocks.ROSE_BUSH, EntityType.MAGMA_CUBE);
-		defaultFlowerToMimic.put(Blocks.SUNFLOWER, EntityType.CREEPER);
-		defaultFlowerToMimic.put(Blocks.TORCHFLOWER, EntityType.BLAZE);
-		defaultFlowerToMimic.put(Blocks.WHITE_TULIP, EntityType.SKELETON);
-		defaultFlowerToMimic.put(Blocks.WITHER_ROSE, EntityType.WITHER_SKELETON);
+		defaultFlowerToMimic.put(Blocks.ALLIUM, EntityTypes.ILLUSIONER);
+		defaultFlowerToMimic.put(Blocks.AZURE_BLUET, EntityTypes.WANDERING_TRADER);
+		defaultFlowerToMimic.put(Blocks.BLUE_ORCHID, EntityTypes.DROWNED);
+		defaultFlowerToMimic.put(Blocks.CORNFLOWER, EntityTypes.PHANTOM);
+		defaultFlowerToMimic.put(Blocks.DANDELION, EntityTypes.ZOMBIE_VILLAGER);
+		defaultFlowerToMimic.put(Blocks.LILAC, EntityTypes.SHULKER);
+		defaultFlowerToMimic.put(Blocks.LILY_OF_THE_VALLEY, EntityTypes.GHAST);
+		defaultFlowerToMimic.put(Blocks.ORANGE_TULIP, EntityTypes.SNOW_GOLEM);
+		defaultFlowerToMimic.put(Blocks.OXEYE_DAISY, EntityTypes.STRAY);
+		defaultFlowerToMimic.put(Blocks.PEONY, EntityTypes.VINDICATOR);
+		defaultFlowerToMimic.put(Blocks.PINK_TULIP, EntityTypes.SLIME);
+		defaultFlowerToMimic.put(Blocks.POPPY, EntityTypes.CAVE_SPIDER);
+		defaultFlowerToMimic.put(Blocks.RED_TULIP, EntityTypes.SPIDER);
+		defaultFlowerToMimic.put(Blocks.ROSE_BUSH, EntityTypes.MAGMA_CUBE);
+		defaultFlowerToMimic.put(Blocks.SUNFLOWER, EntityTypes.CREEPER);
+		defaultFlowerToMimic.put(Blocks.TORCHFLOWER, EntityTypes.BLAZE);
+		defaultFlowerToMimic.put(Blocks.WHITE_TULIP, EntityTypes.SKELETON);
+		defaultFlowerToMimic.put(Blocks.WITHER_ROSE, EntityTypes.WITHER_SKELETON);
 	}
 
 	public static void loadDefaultFlowerMimicDrops() {

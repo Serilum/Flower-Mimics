@@ -1,10 +1,10 @@
-package com.natamus.flowermimics.events;
+package com.serilum.flowermimics.events;
 
 import com.natamus.collective.functions.CompareBlockFunctions;
 import com.natamus.collective.functions.HashMapFunctions;
-import com.natamus.flowermimics.config.ConfigHandler;
-import com.natamus.flowermimics.util.Reference;
-import com.natamus.flowermimics.util.Util;
+import com.serilum.flowermimics.config.ConfigHandler;
+import com.serilum.flowermimics.util.Reference;
+import com.serilum.flowermimics.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.TickTask;

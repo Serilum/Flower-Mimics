@@ -1,8 +1,8 @@
-package com.natamus.flowermimics.util;
+package com.serilum.flowermimics.util;
 
 import com.natamus.collective.functions.HashMapFunctions;
-import com.natamus.flowermimics.config.ConfigHandler;
-import com.natamus.flowermimics.data.MimicData;
+import com.serilum.flowermimics.config.ConfigHandler;
+import com.serilum.flowermimics.data.MimicData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -188,20 +188,20 @@ public class Util {
 		}
 	}
 
-    public static void spawnLightning(Level level, BlockPos pos, Player player) {
-        LightningBolt lightningbolt = EntityType.LIGHTNING_BOLT.create(level);
+	public static void spawnLightning(Level level, BlockPos pos, Player player) {
+		LightningBolt lightningbolt = EntityType.LIGHTNING_BOLT.create(level);
 		if (lightningbolt == null) {
 			return;
 		}
 
-        lightningbolt.moveTo(Vec3.atBottomCenterOf(pos));
+		lightningbolt.moveTo(Vec3.atBottomCenterOf(pos));
 		lightningbolt.getTags().add("visualonly");
-        level.addFreshEntity(lightningbolt);
+		level.addFreshEntity(lightningbolt);
 
-        if (player != null) {
-            player.playSound(SoundEvents.LIGHTNING_BOLT_THUNDER, 5.0F, 1.0F);
-        }
-    }
+		if (player != null) {
+			player.playSound(SoundEvents.LIGHTNING_BOLT_THUNDER, 5.0F, 1.0F);
+		}
+	}
 
 	public static void resetFlowerMimics(Level level) {
 		flowersChecked.put(level, new ArrayList<BlockPos>());

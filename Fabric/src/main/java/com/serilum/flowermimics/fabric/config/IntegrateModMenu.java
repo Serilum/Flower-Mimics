@@ -1,7 +1,7 @@
-package com.natamus.flowermimics.fabric.config;
+package com.serilum.flowermimics.fabric.config;
 
 import com.natamus.collective.config.DuskConfig;
-import com.natamus.flowermimics.util.Reference;
+import com.serilum.flowermimics.util.Reference;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 

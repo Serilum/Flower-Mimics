@@ -1,7 +1,7 @@
-package com.natamus.flowermimics.forge.config;
+package com.serilum.flowermimics.forge.config;
 
 import com.natamus.collective.config.DuskConfig;
-import com.natamus.flowermimics.util.Reference;
+import com.serilum.flowermimics.util.Reference;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModLoadingContext;
 

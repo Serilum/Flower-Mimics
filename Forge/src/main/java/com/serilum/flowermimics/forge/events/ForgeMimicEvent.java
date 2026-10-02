@@ -1,8 +1,8 @@
-package com.natamus.flowermimics.forge.events;
+package com.serilum.flowermimics.forge.events;
 
 import com.natamus.collective.functions.WorldFunctions;
-import com.natamus.flowermimics.data.MimicData;
-import com.natamus.flowermimics.events.MimicEvent;
+import com.serilum.flowermimics.data.MimicData;
+import com.serilum.flowermimics.events.MimicEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -15,15 +15,15 @@ import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ForgeMimicEvent {
-    @SubscribeEvent
-    public static void onWorldLoad(LevelEvent.Load e) {
-        Level level = WorldFunctions.getWorldIfInstanceOfAndNotRemote(e.getLevel());
-        if (level == null) {
-            return;
-        }
+	@SubscribeEvent
+	public static void onWorldLoad(LevelEvent.Load e) {
+		Level level = WorldFunctions.getWorldIfInstanceOfAndNotRemote(e.getLevel());
+		if (level == null) {
+			return;
+		}
 
 		MimicData.attemptMimicConfigProcessing(level);
-    }
+	}
 
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent e) {

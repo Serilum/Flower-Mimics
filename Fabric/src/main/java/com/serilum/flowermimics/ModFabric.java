@@ -1,13 +1,13 @@
-package com.natamus.flowermimics;
+package com.serilum.flowermimics;
 
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
 import com.natamus.collective.fabric.callbacks.CollectiveBlockEvents;
 import com.natamus.collective.fabric.callbacks.CollectiveEntityEvents;
 import com.natamus.collective.fabric.callbacks.CollectivePlayerEvents;
-import com.natamus.flowermimics.data.MimicData;
-import com.natamus.flowermimics.events.MimicEvent;
-import com.natamus.flowermimics.util.Reference;
+import com.serilum.flowermimics.data.MimicData;
+import com.serilum.flowermimics.events.MimicEvent;
+import com.serilum.flowermimics.util.Reference;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;

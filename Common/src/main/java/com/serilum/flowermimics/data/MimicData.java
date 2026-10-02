@@ -1,10 +1,10 @@
-package com.natamus.flowermimics.data;
+package com.serilum.flowermimics.data;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.natamus.collective.functions.DataFunctions;
 import com.natamus.collective.functions.ItemFunctions;
-import com.natamus.flowermimics.util.Reference;
-import com.natamus.flowermimics.util.Util;
+import com.serilum.flowermimics.util.Reference;
+import com.serilum.flowermimics.util.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;

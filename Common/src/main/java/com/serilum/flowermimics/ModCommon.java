@@ -1,9 +1,9 @@
-package com.natamus.flowermimics;
+package com.serilum.flowermimics;
 
 import com.natamus.collective.globalcallbacks.GlobalCropCallback;
-import com.natamus.flowermimics.config.ConfigHandler;
-import com.natamus.flowermimics.data.MimicData;
-import com.natamus.flowermimics.events.MimicEvent;
+import com.serilum.flowermimics.config.ConfigHandler;
+import com.serilum.flowermimics.data.MimicData;
+import com.serilum.flowermimics.events.MimicEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;

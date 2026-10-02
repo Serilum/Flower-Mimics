@@ -1,7 +1,7 @@
-package com.natamus.flowermimics.config;
+package com.serilum.flowermimics.config;
 
 import com.natamus.collective.config.DuskConfig;
-import com.natamus.flowermimics.util.Reference;
+import com.serilum.flowermimics.util.Reference;
 
 import java.util.Arrays;
 import java.util.HashMap;

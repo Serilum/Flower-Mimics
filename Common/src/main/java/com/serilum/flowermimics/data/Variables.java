@@ -1,4 +1,4 @@
-package com.natamus.flowermimics.data;
+package com.serilum.flowermimics.data;
 
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;

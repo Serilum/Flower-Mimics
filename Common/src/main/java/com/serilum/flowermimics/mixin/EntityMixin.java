@@ -1,4 +1,4 @@
-package com.natamus.flowermimics.mixin;
+package com.serilum.flowermimics.mixin;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;

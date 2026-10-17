@@ -34,7 +34,7 @@ public class ConfigHandler extends DuskConfig {
 			"The amount of extra experience that should drop whenever a mimic is killed."
 		));
 		configMetaData.put("dropExtraItemsOnMimicDeath", Arrays.asList(
-			"Whether the items specified in ./config/flowermimics/.. should be dropped whenever a mimic is killed."
+			"Whether the items specified in ./config/serilum/flowermimics/.. should be dropped whenever a mimic is killed."
 		));
 		configMetaData.put("onlyTransformMimicsAtNight", Arrays.asList(
 			"Whether flowers should only transform into mobs when it is night time. When disabled, they can always transform."

@@ -5,7 +5,7 @@ import com.serilum.flowermimics.config.ConfigHandler;
 import com.serilum.flowermimics.data.MimicData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -78,7 +78,7 @@ public class Util {
 		mimic.setCustomName(mimicNameComponent.withStyle(ChatFormatting.GOLD));
 
 		if (ConfigHandler.removeFlowerBlockOnMimicSpawn) {
-			ResourceLocation resourceLocation = level.registryAccess().registryOrThrow(BuiltInRegistries.BLOCK.key()).getKey(flowerBlock);
+			ResourceLocation resourceLocation = level.registryAccess().registryOrThrow(Registries.BLOCK).getKey(flowerBlock);
 
 			mimic.addTag(Reference.MOD_ID + ".flower." + resourceLocation);
 			mimic.addTag(Reference.MOD_ID + ".location." + flowerPos.getX() + "," + flowerPos.getY() + "," + flowerPos.getZ());
@@ -106,7 +106,7 @@ public class Util {
 
 		ResourceLocation flowerBlockResourceLocation = new ResourceLocation(flowerBlockRlString);
 
-		Block flowerBlock = level.registryAccess().registryOrThrow(BuiltInRegistries.BLOCK.key()).get(flowerBlockResourceLocation);
+		Block flowerBlock = level.registryAccess().registryOrThrow(Registries.BLOCK).get(flowerBlockResourceLocation);
 		if (flowerBlock != null) {
 			if (ConfigHandler.dropExtraItemsOnMimicDeath && !flowerOnly) {
 				ItemStack mimicItemDropStack = MimicData.getFlowerMimicDrop(flowerBlock);
@@ -127,7 +127,7 @@ public class Util {
 		String flowerBlockRlString = flowerTag.split(".flower.")[1];
 
 		ResourceLocation flowerBlockResourceLocation = new ResourceLocation(flowerBlockRlString);
-		Block flowerBlock = level.registryAccess().registryOrThrow(BuiltInRegistries.BLOCK.key()).get(flowerBlockResourceLocation);
+		Block flowerBlock = level.registryAccess().registryOrThrow(Registries.BLOCK).get(flowerBlockResourceLocation);
 
 		boolean flowerPlaced = false;
 

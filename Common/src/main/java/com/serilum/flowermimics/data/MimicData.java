@@ -6,11 +6,11 @@ import com.natamus.collective.functions.ItemFunctions;
 import com.serilum.flowermimics.util.Reference;
 import com.serilum.flowermimics.util.Util;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -107,13 +107,79 @@ public class MimicData {
 	private static final File flowerMimicsFile = new File(dirPath + File.separator + "flower_mimics.txt");
 	private static final File flowerItemDropsFile = new File(dirPath + File.separator + "flower_item_drops.txt");
 
+	public static String readFlowerMimics() {
+		List<String> mapLines = new ArrayList<>();
+		for (String line : readConfigFile(flowerMimicsFile).split("\\R")) {
+			String[] lineSplit = line.split(";");
+			if (lineSplit.length == 2 && !lineSplit[0].isBlank()) {
+				mapLines.add(lineSplit[0].strip() + ";" + lineSplit[1].strip());
+			}
+		}
+		return String.join("\n", mapLines);
+	}
+
+	public static void writeFlowerMimics(MinecraftServer server, String mapText) {
+		List<String> flowerMimicsLines = new ArrayList<>();
+		for (String mapLine : mapText.split("\\R")) {
+			String[] mapLineSplit = mapLine.split(";");
+			if (mapLineSplit[0].isBlank()) {
+				continue;
+			}
+
+			String mimic = " ";
+			if (mapLineSplit.length == 2) {
+				mimic = mapLineSplit[1].strip();
+			}
+			flowerMimicsLines.add(mapLineSplit[0].strip() + " ; " + mimic);
+		}
+
+		writeConfigFile(flowerMimicsFile, String.join("\n", flowerMimicsLines) + "\n");
+		reloadMimicConfig(server);
+	}
+
+	public static String readFlowerItemDrops() {
+		return readConfigFile(flowerItemDropsFile);
+	}
+
+	public static void writeFlowerItemDrops(MinecraftServer server, String text) {
+		writeConfigFile(flowerItemDropsFile, text);
+		reloadMimicConfig(server);
+	}
+
+	private static String readConfigFile(File file) {
+		try {
+			return Files.readString(file.toPath());
+		}
+		catch (IOException ignored) {
+			return "";
+		}
+	}
+
+	private static void writeConfigFile(File file, String text) {
+		try {
+			PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
+			writer.print(text);
+			writer.close();
+		}
+		catch (IOException ignored) {
+			Variables.logger.warn("[" + Reference.NAME + "] Unable to write {}.", file.getName());
+		}
+	}
+
+	private static void reloadMimicConfig(MinecraftServer server) {
+		Variables.processedMimicConfig = false;
+		if (server != null) {
+			attemptMimicConfigProcessing(server.overworld());
+		}
+	}
+
 	public static void attemptMimicConfigProcessing(Level level) {
 		if (!Variables.processedMimicConfig) {
 			try {
 				setMimicConfig(level);
 				Variables.processedMimicConfig = true;
 			} catch (Exception ex) {
-				System.out.println("[" + Reference.NAME + "] Error: Unable to generate flower mimic config list.");
+				Variables.logger.warn("[" + Reference.NAME + "] Unable to generate the flower mimic config list.", ex);
 			}
 		}
 	}
@@ -123,6 +189,8 @@ public class MimicData {
 		Registry<EntityType<?>> entityTypeRegistry = level.registryAccess().registryOrThrow(Registries.ENTITY_TYPE);
 
 		allFlowers = new ArrayList<Block>();
+		flowerToMimic = new HashMap<Block, EntityType<?>>();
+		flowerMimicDrops = new HashMap<Block, ItemStack>();
 
 		PrintWriter flowerMimicsWriter = null;
 		PrintWriter flowerItemDropsWriter = null;
@@ -131,9 +199,6 @@ public class MimicData {
 				flowerMimicsWriter = new PrintWriter(dirPath + File.separator + "flower_mimics.txt", StandardCharsets.UTF_8);
 				flowerItemDropsWriter = new PrintWriter(dirPath + File.separator + "flower_item_drops.txt", StandardCharsets.UTF_8);
 			}
-
-			flowerToMimic = new HashMap<Block, EntityType<?>>();
-			flowerMimicDrops = new HashMap<Block, ItemStack>();
 		}
 		else {
 			String flowerMimicsContent = new String(Files.readAllBytes(Paths.get(dirPath + File.separator + "flower_mimics.txt")));
@@ -151,7 +216,7 @@ public class MimicData {
 				String flowerBlockRlString = lspl[0].strip();
 				ResourceLocation flowerBlockResourceLocation = new ResourceLocation(flowerBlockRlString);
 
-				Block flowerBlock = level.registryAccess().registryOrThrow(BuiltInRegistries.BLOCK.key()).get(flowerBlockResourceLocation);
+				Block flowerBlock = level.registryAccess().registryOrThrow(Registries.BLOCK).get(flowerBlockResourceLocation);
 
 				if (flowerBlock == null) {
 					Variables.logger.warn("[" + Reference.NAME + "] Unable to find flower '" + flowerBlockRlString + "' in registry.");
@@ -165,7 +230,7 @@ public class MimicData {
 
 				ResourceLocation mimicEntityTypeResourceLocation = new ResourceLocation(mimicEntityTypeString);
 
-				EntityType<?> mimicEntityType = level.registryAccess().registryOrThrow(BuiltInRegistries.ENTITY_TYPE.key()).get(mimicEntityTypeResourceLocation);
+				EntityType<?> mimicEntityType = level.registryAccess().registryOrThrow(Registries.ENTITY_TYPE).get(mimicEntityTypeResourceLocation);
 
 				if (mimicEntityType == null) {
 					Variables.logger.warn("[" + Reference.NAME + "] Unable to find entity type '" + mimicEntityTypeString + "' in registry.");
@@ -190,7 +255,7 @@ public class MimicData {
 				String flowerBlockRlString = lspl[0].strip();
 				ResourceLocation flowerBlockResourceLocation = new ResourceLocation(flowerBlockRlString);
 
-				Block flowerBlock = level.registryAccess().registryOrThrow(BuiltInRegistries.BLOCK.key()).get(flowerBlockResourceLocation);
+				Block flowerBlock = level.registryAccess().registryOrThrow(Registries.BLOCK).get(flowerBlockResourceLocation);
 
 				if (flowerBlock == null) {
 					Variables.logger.warn("[" + Reference.NAME + "] 2. Unable to find flower '" + flowerBlockRlString + "' in registry.");

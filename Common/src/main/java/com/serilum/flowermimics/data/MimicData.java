@@ -14,6 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
@@ -109,14 +110,79 @@ public class MimicData {
 	private static final File flowerMimicsFile = new File(dirPath + File.separator + "flower_mimics.txt");
 	private static final File flowerItemDropsFile = new File(dirPath + File.separator + "flower_item_drops.txt");
 
+	public static String readFlowerMimics() {
+		List<String> mapLines = new ArrayList<>();
+		for (String line : readConfigFile(flowerMimicsFile).split("\\R")) {
+			String[] lineSplit = line.split(";");
+			if (lineSplit.length == 2 && !lineSplit[0].isBlank()) {
+				mapLines.add(lineSplit[0].strip() + ";" + lineSplit[1].strip());
+			}
+		}
+		return String.join("\n", mapLines);
+	}
+
+	public static void writeFlowerMimics(MinecraftServer server, String mapText) {
+		List<String> flowerMimicsLines = new ArrayList<>();
+		for (String mapLine : mapText.split("\\R")) {
+			String[] mapLineSplit = mapLine.split(";");
+			if (mapLineSplit[0].isBlank()) {
+				continue;
+			}
+
+			String mimic = " ";
+			if (mapLineSplit.length == 2) {
+				mimic = mapLineSplit[1].strip();
+			}
+			flowerMimicsLines.add(mapLineSplit[0].strip() + " ; " + mimic);
+		}
+
+		writeConfigFile(flowerMimicsFile, String.join("\n", flowerMimicsLines) + "\n");
+		reloadMimicConfig(server);
+	}
+
+	public static String readFlowerItemDrops() {
+		return readConfigFile(flowerItemDropsFile);
+	}
+
+	public static void writeFlowerItemDrops(MinecraftServer server, String text) {
+		writeConfigFile(flowerItemDropsFile, text);
+		reloadMimicConfig(server);
+	}
+
+	private static String readConfigFile(File file) {
+		try {
+			return Files.readString(file.toPath());
+		}
+		catch (IOException ignored) {
+			return "";
+		}
+	}
+
+	private static void writeConfigFile(File file, String text) {
+		try {
+			PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8);
+			writer.print(text);
+			writer.close();
+		}
+		catch (IOException ignored) {
+			Variables.logger.warn("[" + Reference.NAME + "] Unable to write {}.", file.getName());
+		}
+	}
+
+	private static void reloadMimicConfig(MinecraftServer server) {
+		Variables.processedMimicConfig = false;
+		if (server != null) {
+			attemptMimicConfigProcessing(server.overworld());
+		}
+	}
+
 	public static void attemptMimicConfigProcessing(Level level) {
 		if (!Variables.processedMimicConfig) {
 			try {
 				setMimicConfig(level);
 				Variables.processedMimicConfig = true;
 			} catch (Exception ex) {
-				System.out.println("[" + Reference.NAME + "] Error: Unable to generate flower mimic config list.");
-				ex.printStackTrace();
+				Variables.logger.warn("[" + Reference.NAME + "] Unable to generate the flower mimic config list.", ex);
 			}
 		}
 	}
@@ -126,17 +192,15 @@ public class MimicData {
 		Registry<EntityType<?>> entityTypeRegistry = level.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
 
 		allFlowers = new ArrayList<>();
+		flowerToMimic = new HashMap<>();
+		flowerMimicDrops = new HashMap<>();
 
 		PrintWriter flowerMimicsWriter = null;
 		PrintWriter flowerItemDropsWriter = null;
-		if (!dir.isDirectory() || !flowerMimicsFile.isFile() || !flowerItemDropsFile.isFile()) {
-			if (dir.mkdirs()) {
-				flowerMimicsWriter = new PrintWriter(dirPath + File.separator + "flower_mimics.txt", StandardCharsets.UTF_8);
-				flowerItemDropsWriter = new PrintWriter(dirPath + File.separator + "flower_item_drops.txt", StandardCharsets.UTF_8);
-			}
-
-			flowerToMimic = new HashMap<>();
-			flowerMimicDrops = new HashMap<>();
+		if (!dir.isDirectory() || !flowerMimicsFile.isFile() || !flowerItemDropsFile.isFile() || readConfigFile(flowerMimicsFile).isBlank()) {
+			boolean ignored = dir.mkdirs();
+			flowerMimicsWriter = new PrintWriter(dirPath + File.separator + "flower_mimics.txt", StandardCharsets.UTF_8);
+			flowerItemDropsWriter = new PrintWriter(dirPath + File.separator + "flower_item_drops.txt", StandardCharsets.UTF_8);
 		}
 		else {
 			String flowerMimicsContent = new String(Files.readAllBytes(Paths.get(dirPath + File.separator + "flower_mimics.txt")));
@@ -254,13 +318,9 @@ public class MimicData {
 				flowerToMimic.put(flowerBlock, defaultMimic);
 			}
 
-			if (flowerItemDropsWriter != null) {
-				ItemStack defaultFlowerMimicDropStack = new ItemStack(Blocks.AIR, 1);
-
-				if (defaultFlowerMimicDrops.containsKey(flowerBlock)) {
-					Pair<Item, Integer> itemPair = defaultFlowerMimicDrops.get(flowerBlock);
-					defaultFlowerMimicDropStack = new ItemStack(itemPair.getFirst(), itemPair.getSecond());
-				}
+			if (flowerItemDropsWriter != null && defaultFlowerMimicDrops.containsKey(flowerBlock)) {
+				Pair<Item, Integer> itemPair = defaultFlowerMimicDrops.get(flowerBlock);
+				ItemStack defaultFlowerMimicDropStack = new ItemStack(itemPair.getFirst(), itemPair.getSecond());
 
 				String nBTString = ItemFunctions.getNBTStringFromItemStack(level, defaultFlowerMimicDropStack);
 
